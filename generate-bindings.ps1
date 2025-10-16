@@ -118,7 +118,11 @@ function Invoke-SwiftWinRT() {
     # write rsp params to file
     $RspFile = Join-Path $PSScriptRoot "swift-winrt.rsp"
     $RspParams | Out-File -FilePath $RspFile -Encoding ascii
-    & $PackagesDir\TheBrowserCompany.SwiftWinRT.$SwiftWinRTVersion\bin\swiftwinrt.exe "@$RspFile"
+    $SwiftWinRTLocation = "$PackagesDir\TheBrowserCompany.SwiftWinRT.$SwiftWinRTVersion\bin\swiftwinrt.exe"
+    if ($env:SwiftWinRTOverride -ne $nul) {
+        $SwiftWinRTLocation = $env:SwiftWinRTOverride
+    }
+    & $SwiftWinRTLocation "@$RspFile"
 
     if ($LASTEXITCODE -ne 0) {
         Write-Host "swiftwinrt failed with error code $LASTEXITCODE" -ForegroundColor Red
@@ -139,7 +143,7 @@ function Copy-PackageAssets {
         [string]$PackagesDir
     )
 
-    $Arch = "x64"
+    $Arch = "arm64"
     $Projections = Get-Content -Path $PSScriptRoot\projections.json | ConvertFrom-Json
     $Package = $Projections.Package.Id
     $PackageVersion = $Projections.Package.Version
