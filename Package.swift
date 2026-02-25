@@ -20,8 +20,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url:"https://github.com/thebrowsercompany/swift-cwinrt", branch: "main"),
-        .package(url:"https://github.com/thebrowsercompany/swift-uwp", branch: "main),
-        .package(url:"https://github.com/syriku/swift-windowsfoundation", branch: "main),
+        .package(url:"https://github.com/thebrowsercompany/swift-uwp", branch: "main"),
+        .package(url:"https://github.com/syriku/swift-windowsfoundation", branch: "main"),
     ],
     targets: [
         .target(
